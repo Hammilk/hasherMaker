@@ -2,6 +2,7 @@
 #include<sys/types.h>
 #include<unistd.h>
 #include<stdlib.h>
+#include<ctype.h>
 
 void print_usage(const char * app){
   fprintf(stderr, "usage: [-h] [-s size] [-k key]\n");
@@ -13,8 +14,8 @@ int main(int argc, char *argv[])
 {
   const char optstr[] = "hs:k:";
   char opt;
-  int hashKey = 3;
-  int arrSize = 5;
+  int hashKey = 3; //defaults
+  int arrSize = 5; //defaults
   while((opt = getopt(argc, argv, optstr))!= -1){
     switch(opt){
       case 'h':
@@ -40,7 +41,13 @@ int main(int argc, char *argv[])
     printf("Enter value[%d]: ", i);
     scanf("%c", &temp);
     getchar();
-    arr[i] = temp % hashKey;
+    if(isalpha(temp) && temp > 96){
+      arr[i] = (temp - 96) % hashKey;
+    }
+    else if(isalpha(temp)){
+      arr[i] = (temp - 64) % hashKey; 
+    }
+    else arr[i] = (temp % hashKey);
   }
   for(int i = 0; i < arrSize; i++){
     printf("%d\n", arr[i]);
