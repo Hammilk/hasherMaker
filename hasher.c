@@ -4,14 +4,14 @@
 #include<stdlib.h>
 
 void print_usage(const char * app){
-  fprintf(stderr, "usage: [-h] [-s size] [-k key]");
-  fprintf(stderr, "   size indicates how many characters/numbers to hash");
-  fprintf(stderr, "   key indicates hashmap value");
+  fprintf(stderr, "usage: [-h] [-s size] [-k key]\n");
+  fprintf(stderr, "   size indicates how many characters/numbers to hash\n");
+  fprintf(stderr, "   key indicates hashmap value\n");
 }
 
 int main(int argc, char *argv[])
 {
-  const char optstr[] = "hs:k";
+  const char optstr[] = "hs:k:";
   char opt;
   int hashKey = 3;
   int arrSize = 5;
@@ -39,12 +39,13 @@ int main(int argc, char *argv[])
     char temp;
     printf("Enter value[%d]: ", i);
     scanf("%c", &temp);
+    getchar();
     arr[i] = temp % hashKey;
   }
   for(int i = 0; i < arrSize; i++){
-    printf("%d", arr[i]);
+    printf("%d\n", arr[i]);
   } 
-
+  free(arr);
 
   return 0;
   }
